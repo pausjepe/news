@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pausjepe - Forum Edukasi Kolaboratif</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3a7bd5;
+            --secondary: #00d2ff;
+            --accent: #ff6b6b;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+            --success: #20c997;
+            --text: #495057;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+        }
+        
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 400;
+            src: url(https://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrJJfedw.ttf) format('truetype');
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: white;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+            position: relative;
+        }
+        
+        nav ul li a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a .nav-icon {
+            margin-right: 8px;
+            font-size: 0.9em;
+        }
+        
+        .nav-button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(58, 123, 213, 0.3);
+            color: white;
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            background: linear-gradient(135deg, rgba(58, 123, 213, 0.9), rgba(0, 210, 255, 0.8)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: var(--light);
+            transform: skewY(-3deg);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .primary-button {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .primary-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .secondary-button {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .secondary-button:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            background: linear-gradient(to right, white, #f8f9fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        /* Features */
+        .features {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: var(--light);
+            transform: skewY(3deg);
+            z-index: 1;
+        }
+        
+        .features-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 20px auto 0;
+            color: var(--text);
+            opacity: 0.8;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(58, 123, 213, 0.1);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 10px 20px rgba(58, 123, 213, 0.2);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* Forum Preview */
+        .forum-preview {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .preview-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .preview-content {
+            flex: 1;
+        }
+        
+        .preview-image {
+            flex: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+            transform: perspective(1000px) rotateY(-10deg);
+            transition: all 0.5s ease;
+        }
+        
+        .preview-image:hover {
+            transform: perspective(1000px) rotateY(-5deg) translateY(-5px);
+        }
+        
+        .preview-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .preview-content h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        
+        .preview-content p {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .feature-list {
+            margin: 30px 0;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .feature-item-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .feature-item-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        /* Categories */
+        .categories {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(58, 123, 213, 0.1);
+        }
+        
+        .category-header {
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+        }
+        
+        .category-body {
+            padding: 25px;
+        }
+        
+        .category-body h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .category-body p {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+        
+        .category-topics {
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--primary);
+        }
+        
+        .category-topics i {
+            margin-right: 5px;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            position: relative;
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 50px auto 0;
+            position: relative;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            margin: 0 20px;
+        }
+        
+        .testimonial-quote {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .testimonial-quote::before,
+        .testimonial-quote::after {
+            content: '"';
+            font-size: 3rem;
+            color: rgba(58, 123, 213, 0.1);
+            font-family: Georgia, serif;
+            position: absolute;
+        }
+        
+        .testimonial-quote::before {
+            top: -20px;
+            left: -10px;
+        }
+        
+        .testimonial-quote::after {
+            bottom: -40px;
+            right: -10px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+            border: 3px solid rgba(58, 123, 213, 0.2);
+        }
+        
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+            text-align: left;
+        }
+        
+        .author-info p {
+            font-size: 0.9rem;
+            color: var(--text);
+            opacity: 0.7;
+            text-align: left;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .cta-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .cta-form input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            font-size: 1rem;
+        }
+        
+        .cta-form button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-form button:hover {
+            background-color: #ff5252;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 80px 0 30px;
+            position: relative;
+        }
+        
+        .footer-wave {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25' fill='%232c3e50'%3E%3C/path%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' opacity='.5' fill='%232c3e50'%3E%3C/path%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,233.58-94.45V0Z' fill='%232c3e50'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .footer-about {
+            grid-column: 1 / -1;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: white;
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            opacity: 0.7;
+            max-width: 500px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links ul li a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links ul li a:hover {
+            opacity: 1;
+            padding-left: 5px;
+        }
+        
+        .footer-links ul li a i {
+            margin-right: 8px;
+            font-size: 0.8rem;
+        }
+        
+        .footer-newsletter p {
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+        
+        .newsletter-form {
+            display: flex;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .newsletter-form button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-form button:hover {
+            opacity: 0.9;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .preview-container {
+                flex-direction: column;
+            }
+            
+            .preview-content, .preview-image {
+                flex: none;
+                width: 100%;
+            }
+            
+            .preview-image {
+                margin-top: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .preview-content h2 {
+                font-size: 2rem;
+            }
+            
+            .cta-form {
+                flex-direction: column;
+            }
+            
+            .cta-form input,
+            .cta-form button {
+                width: 100%;
+                border-radius: 8px;
+            }
+            
+            .cta-form button {
+                margin-top: 10px;
+                padding: 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .hero-stats {
+                gap: 20px;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        .delay-5 { animation-delay: 1s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-fish"></i>
+                </div>
+                <span>Pausjepe</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#home"><i class="fas fa-home nav-icon"></i> Beranda</a></li>
+                    <li><a href="#features"><i class="fas fa-star nav-icon"></i> Fitur</a></li>
+                    <li><a href="#forum"><i class="fas fa-comments nav-icon"></i> Forum</a></li>
+                    <li><a href="#categories"><i class="fas fa-layer-group nav-icon"></i> Kategori</a></li>
+                    <li><a href="#testimonials"><i class="fas fa-quote-left nav-icon"></i> Testimoni</a></li>
+                    <li><a href="#" class="nav-button"><i class="fas fa-sign-in-alt nav-icon"></i> Masuk</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="animate">Tempat Berkumpulnya Para Pencari Ilmu</h1>
+            <p class="animate delay-1">Pausjepe adalah platform forum edukasi kolaboratif yang menghubungkan pelajar, pendidik, dan profesional untuk berdiskusi, berbagi, dan berkembang bersama.</p>
+            <div class="hero-buttons">
+                <a href="#" class="cta-button primary-button animate delay-2">Mulai Sekarang <i class="fas fa-arrow-right"></i></a>
+                <a href="#features" class="cta-button secondary-button animate delay-3">Pelajari Lebih Lanjut</a>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat-item animate delay-4">
+                    <div class="stat-number">15.000+</div>
+                    <div class="stat-label">Anggota</div>
+                </div>
+                <div class="stat-item animate delay-4">
+                    <div class="stat-number">75.000+</div>
+                    <div class="stat-label">Diskusi</div>
+                </div>
+                <div class="stat-item animate delay-4">
+                    <div class="stat-number">300+</div>
+                    <div class="stat-label">Ahli</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-content">
+            <div class="container">
+                <div class="section-title">
+                    <h2 class="animate">Mengapa Pausjepe?</h2>
+                    <p class="animate delay-1">Platform kami dirancang khusus untuk memfasilitasi pembelajaran kolaboratif dengan fitur-fitur unggulan.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card animate delay-2">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Komunitas Berkualitas</h3>
+                        <p>Bergabung dengan ribuan anggota yang berkomitmen untuk berbagi pengetahuan dan pengalaman edukasi yang bermanfaat.</p>
+                    </div>
+                    <div class="feature-card animate delay-3">
+                        <div class="feature-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3>Ahli Terverifikasi</h3>
+                        <p>Dapatkan jawaban langsung dari para ahli dan profesional yang telah diverifikasi kredensialnya di bidang masing-masing.</p>
+                    </div>
+                    <div class="feature-card animate delay-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3>Sistem Reputasi</h3>
+                        <p>Kontribusi berkualitas dihargai dengan sistem reputasi yang mendorong partisipasi aktif dan bermanfaat.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Forum Preview -->
+    <section class="forum-preview" id="forum">
+        <div class="container">
+            <div class="preview-container">
+                <div class="preview-content">
+                    <h2 class="animate">Pengalaman Diskusi yang Lebih Baik</h2>
+                    <p class="animate delay-1">Pausjepe menawarkan antarmuka yang dirancang untuk memudahkan diskusi mendalam dan kolaborasi edukasi.</p>
+                    
+                    <div class="feature-list">
+                        <div class="feature-item animate delay-2">
+                            <div class="feature-item-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="feature-item-content">
+                                <h4>Thread Diskusi Terstruktur</h4>
+                                <p>Diskusi terorganisir dengan baik dalam thread yang mudah diikuti</p>
+                            </div>
+                        </div>
+                        <div class="feature-item animate delay-3">
+                            <div class="feature-item-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="feature-item-content">
+                                <h4>Format Konten Fleksibel</h4>
+                                <p>Dukung teks, gambar, kode, dan embed konten eksternal</p>
+                            </div>
+                        </div>
+                        <div class="feature-item animate delay-4">
+                            <div class="feature-item-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="feature-item-content">
+                                <h4>Pencarian Canggih</h4>
+                                <p>Temukan jawaban dengan cepat menggunakan sistem pencarian yang powerful</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="preview-image animate delay-3">
+                    <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Forum Preview">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="animate">Jelajahi Kategori Kami</h2>
+                <p class="animate delay-1">Temukan topik yang sesuai dengan minat dan kebutuhan belajar Anda</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card animate delay-2">
+                    <div class="category-header">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <div class="category-body">
+                        <h3>Sains & Teknologi</h3>
+                        <p>Diskusi tentang perkembangan terbaru di dunia sains dan teknologi</p>
+                        <div class="category-topics">
+                            <i class="fas fa-comment-dots"></i> 12.345 topik
+                        </div>
+                    </div>
+                </div>
+                <div class="category-card animate delay-3">
+                    <div class="category-header">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="category-body">
+                        <h3>Pemrograman</h3>
+                        <p>Belajar dan berbagi tentang berbagai bahasa pemrograman</p>
+                        <div class="category-topics">
+                            <i class="fas fa-comment-dots"></i> 15.678 topik
+                        </div>
+                    </div>
+                </div>
+                <div class="category-card animate delay-4">
+                    <div class="category-header">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="category-body">
+                        <h3>Bisnis & Ekonomi</h3>
+                        <p>Strategi bisnis, manajemen, dan analisis ekonomi</p>
+                        <div class="category-topics">
+                            <i class="fas fa-comment-dots"></i> 8.901 topik
+                        </div>
+                    </div>
+                </div>
+                <div class="category-card animate delay-5">
+                    <div class="category-header">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="category-body">
+                        <h3>Seni & Desain</h3>
+                        <p>Kreativitas tanpa batas dalam dunia seni dan desain</p>
+                        <div class="category-topics">
+                            <i class="fas fa-comment-dots"></i> 6.543 topik
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="animate">Apa Kata Mereka?</h2>
+                <p class="animate delay-1">Testimoni dari anggota komunitas Pausjepe</p>
+            </div>
+            
+            <div class="testimonial-slider">
+                <div class="testimonial-card animate delay-2">
+                    <div class="testimonial-quote">
+                        Sebagai seorang dosen, saya sangat menghargai kualitas diskusi di Pausjepe. Platform ini membantu saya terhubung dengan kolega dari berbagai institusi dan mendapatkan perspektif baru untuk pengajaran saya.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Dr. Andi Wijaya">
+                        </div>
+                        <div class="author-info">
+                            <h4>Dr. Andi Wijaya</h4>
+                            <p>Dosen Universitas Negeri</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2 class="animate">Siap Bergabung dengan Komunitas Kami?</h2>
+            <p class="animate delay-1">Daftar sekarang dan mulai berdiskusi dengan ribuan anggota lainnya</p>
+            <div class="cta-form animate delay-2">
+                <input type="email" placeholder="Masukkan alamat email Anda">
+                <button type="submit">Daftar Gratis <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-wave"></div>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <a href="#" class="footer-logo">
+                        <div class="footer-logo-icon">
+                            <i class="fas fa-fish"></i>
+                        </div>
+                        <span>Pausjepe</span>
+                    </a>
+                    <p>Platform forum edukasi kolaboratif yang menghubungkan para pencari ilmu dari berbagai latar belakang dan disiplin ilmu.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Navigasi</h3>
+                    <ul>
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Beranda</a></li>
+                        <li><a href="#features"><i class="fas fa-chevron-right"></i> Fitur</a></li>
+                        <li><a href="#forum"><i class="fas fa-chevron-right"></i> Forum</a></li>
+                        <li><a href="#categories"><i class="fas fa-chevron-right"></i> Kategori</a></li>
+                        <li><a href="#testimonials"><i class="fas fa-chevron-right"></i> Testimoni</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Dukungan</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Pusat Bantuan</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Panduan Komunitas</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Kebijakan Privasi</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Syarat Layanan</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Hubungi Kami</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Berlangganan untuk mendapatkan update terbaru dan konten eksklusif.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Alamat email Anda">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Pausjepe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const nav = document.querySelector('nav ul');
+            
+            mobileMenu.addEventListener('click', function() {
+                nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (nav.style.display === 'flex') {
+                            nav.style.display = 'none';
+                        }
+                    }
+                });
+            });
+            
+            // Animation on scroll
+            const animateElements = document.querySelectorAll('.animate');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
